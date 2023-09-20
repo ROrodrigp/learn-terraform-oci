@@ -34,3 +34,20 @@ resource "oci_identity_compartment" "tf-compartment" {
   description    = "Compartment for terraform resources"
   name           = "terraform-compartment"
 }
+
+resource "oci_core_instance" "ubuntu_instance" {
+  availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
+  compartment_id      = var.compartment_id
+  shape               = "VM.Standard2.1"
+  source_details {
+    source_id   = var.compute_image_ocid
+    source_type = "image"
+  }
+
+  display_name = "ubuntu_instance"
+  create_vnic_details {
+    assign_public_ip = false
+    subnet_id        = oci_core_subnet.dev.id
+  }
+  preserve_boot_volume = false
+}

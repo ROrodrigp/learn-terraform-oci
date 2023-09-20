@@ -13,3 +13,8 @@ variable "root_compartment_id" {
   description = "OCID from the root compartment in your tenancy"
   type        = string
 }
+
+variable "compute_image_ocid" {
+  description = "OCID from the Ubuntu compute instance"
+  type        = string
+}
